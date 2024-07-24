@@ -1,0 +1,648 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Zomato</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/locomotive-scroll@3.5.4/dist/locomotive-scroll.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+
+<body>
+
+  <div id="loader">
+    <h1 id="loader-text1">Zomato</h1>
+    <img src="./assets/burger.png" alt="">
+    <h1 id="loader-text2">Order <span id="">Now</span></h1>
+  </div>
+
+  <div id="menubar">
+    <div id="cross">x</div>
+    <div id="menu">
+      <ul class="menu-list">
+        <li>
+          <a href="#" data-text="Home">Home</a>
+        </li>
+        <li>
+          <a href="#" data-text="About">About</a>
+        </li>
+        <li>
+          <a href="#" data-text="Order Now">Order Now</a>
+        </li>
+        <li>
+          <a href="#" data-text="App">Get the App</a>
+        </li>
+        <li>
+          <a href="#" data-text="Contact">Contact</a>
+        </li>
+      </ul>
+    </div>
+  </div>
+
+  <div id="main">
+
+    <nav>
+      <svg id="menubtn" width="31" height="38" viewBox="0 0 31 38" fill="none" xmlns="http://www.w3.org/2000/svg"
+        xmlns:xlink="http://www.w3.org/1999/xlink">
+        <rect width="31" height="38" fill="url(#pattern0_3_15)" />
+        <defs>
+          <pattern id="pattern0_3_15" patternContentUnits="objectBoundingBox" width="1" height="1">
+            <use xlink:href="#image0_3_15" transform="matrix(0.01 0 0 0.00815789 0 0.0921053)" />
+          </pattern>
+          <image id="image0_3_15" width="100" height="100"
+            xlink:href="data:image/png;base64,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" />
+        </defs>
+      </svg>
+      <h1>Zomato</h1>
+      <div class="nav-btn">
+        <h4>Place Your Order</h4>
+      </div>
+    </nav>
+
+    <div id="hero">
+      <div id="hero-anim">
+        <div id="hero-text1" class="hero-text">
+          <h1>Delivery Food </h1>
+          <h1>Delivery Food </h1>
+          <h1>Delivery Food </h1>
+          <h1>Delivery Food </h1>
+          <h1>Delivery Food </h1>
+          <h1>Delivery Food </h1>
+          <h1>Delivery Food </h1>
+        </div>
+        <div id="hero-text2" class="hero-text">
+          <h1>DELIVERY FOOD </h1>
+          <h1>DELIVERY FOOD </h1>
+          <h1>DELIVERY FOOD </h1>
+          <h1>DELIVERY FOOD </h1>
+          <h1>DELIVERY FOOD </h1>
+          <h1>DELIVERY FOOD </h1>
+        </div>
+        <div id="hero-text3" class="hero-text">
+          <h1>Delivery Food </h1>
+          <h1>Delivery Food </h1>
+          <h1>Delivery Food </h1>
+          <h1>Delivery Food </h1>
+          <h1>Delivery Food </h1>
+          <h1>Delivery Food </h1>
+          <h1>Delivery Food </h1>
+          <h1>Delivery Food </h1>
+        </div>
+      </div>
+      <video src="./assets/video1.mp4" autoplay loop muted></video>
+      <div id="hero-circle">
+        <h4>Scroll<br />To Explore</h4>
+      </div>
+    </div>
+
+    <div id="page1">
+      <h3>WHAT WE SERVE</h3>
+      <h1>Your Favorite Food<br />Delivery Partner</h1>
+      <div class="page1-s1">
+        <div class="s1 p11">
+          <div class="s1Image p11"><img src="./assets/womenphones.png" alt="" /></div>
+          <h3>Easy To Order</h3>
+          <p>You only need a few stops <br />in ordering food.</p>
+        </div>
+        <div class="s1 p12">
+          <div class="s1Image p12"><img src="./assets/deliveryboy.png" alt="" /></div>
+          <h3>Fastest Delivery</h3>
+          <p>Delivery that is always ontime<br />even faster.</p>
+        </div>
+        <div class="s1 p13">
+          <div class="s1Image p13"><img src="./assets/foodpackaging.png" alt="" /></div>
+          <h3>Best Quality</h3>
+          <p>Not only fast for us quality is<br />also number one.</p>
+        </div>
+      </div>
+
+    </div>
+
+    <div id="page2">
+      <div id="page2-s1">
+        <h2>EXPLORE THE BEST LOCAL FOOD & DRINKS IN YOUR AREA</h2>
+        <h1>Dishes That Always<br />Make You <span>Fall in Love</span></h1>
+        <h3 id="itemName">Pizza Perfection</h3>
+        <p id="itemdesc">Indulge in the best local pizzas, from classic Margherita to gourmet options. With crispy crusts, flavorful
+          sauces, and perfect cheese blends, each slice promises a taste experience you'll love.</p>
+        <div class="orderBtn">Order Now</div>
+        <div id="p21">
+          <div id="p211">
+            <h4 id="available">Available at</h4>
+            <h5 id="hotel">The Italian hub</h5>
+          </div>
+          <div id="p212"><svg width="70" height="70" viewBox="0 0 42 42" fill="none" xmlns="http://www.w3.org/2000/svg"
+              xmlns:xlink="http://www.w3.org/1999/xlink">
+              <rect width="42" height="42" fill="url(#pattern0_9_42)" />
+              <defs>
+                <pattern id="pattern0_9_42" patternContentUnits="objectBoundingBox" width="1" height="1">
+                  <use xlink:href="#image0_9_42" transform="scale(0.01)" />
+                </pattern>
+                <image id="image0_9_42" width="100" height="100"
+                  xlink:href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAGQAAABkCAYAAABw4pVUAAAACXBIWXMAAAsTAAALEwEAmpwYAAABIklEQVR4nO3dMU7EMABFwT0SXIdut+IGtFycfQghCqSlzheZ6dxZebHTRPblAgAAAAAAwGGqJ49/RPVe3avXo+dyen3H+CHKkarn6qPfvsa307+pB0a5PohipRwpUfYkyp5E2ZMoexJlT6LsSZQ9ibInUfYkyp5E2ZMoexJlT6LsSZQ9ibInUfYkyp5E2ZMoexJlT6LsSZQ9ibInUfYkyp5E2VPd/vjB+3r03E6rxyvla/xy9NxOKUF2ZMvakY/6jsTYkRg7EmNHYuxIjB2JsSMxdiTGjsTYkRg7EmNHYuxIjB2JsSMxdiTGjsTYkRg7EmNHYuxIjB2JsSMxdiTGjsTYkRg7EmNHDuPfU705hH8zyt2FLkNy5REAAAAAAMDlv/kEAny3FazsZ1QAAAAASUVORK5CYII=" />
+              </defs>
+            </svg>
+            </i></div>
+        </div>
+      </div>
+      <div id="page2-s2">
+        <img src="./assets/p2img1.jpg" alt="" id="p2img1">
+        <img src="./assets/p2img2.jpg" alt="" id="p2img2">
+        <img src="./assets/p2img3.jpg" alt="" id="p2img3">
+        <img src="./assets/p2img4.jpg" alt="" id="p2img4">
+        <img src="./assets/p2img5.jpg" alt="" id="p2img5">
+      </div>
+    </div>
+
+    <div id="page3">
+      <div id="p3">
+        <h2>Never have a bad meal</h2>
+        <h1>Get Started With<br /><span>Zomato</span>Today!</h1>
+        <div class="appBtn">Get The App</div>
+      </div>
+      <img src="./assets/pizza.png" alt="" id="pizza">
+      <img src="./assets/Maggi.png" alt="" id="maggi">
+      <img src="./assets/jilebi.png" alt="" id="jilebi">
+      <img src="./assets/burger.png" alt="" id="burger">
+      <img src="./assets/franch_fries.png" alt="" id="franch_fries">
+      <img src="./assets/gulab_jamun.png" alt="" id="gulab_jamun">
+      <img src="./assets/samosa.png" alt="" id="samosa">
+      <img src="./assets/chicken.png" alt="" id="chicken">
+      <img src="./assets/cold_drinks.png" alt="" id="cold_drinks">
+      <div class="phone-sec">
+        <div class="phone">
+          <div class="header">
+            <span id="time">23:30</span>
+            <div class="icons">
+              <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg"
+                xmlns:xlink="http://www.w3.org/1999/xlink">
+                <rect width="16" height="16" fill="url(#pattern0_20_5)" />
+                <defs>
+                  <pattern id="pattern0_20_5" patternContentUnits="objectBoundingBox" width="1" height="1">
+                    <use xlink:href="#image0_20_5" transform="scale(0.01)" />
+                  </pattern>
+                  <image id="image0_20_5" width="100" height="100"
+                    xlink:href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAGQAAABkCAYAAABw4pVUAAAACXBIWXMAAAsTAAALEwEAmpwYAAABb0lEQVR4nO2TyQkDQBDDpv+mnRpyIjsS7FfgEXsnIiIivyIffvImBoFhEBgGgWEQGAaBYRAYBoFhEBgGgWEQGAaBYRAYBoFhEBgGgWEQGAaBYRAYBoFhEBgGgR3MIE9iEBjxh7CIQVjEICxiEBYxCIsYhEUMwiIGYRGDsIhBWMQgLGIQFjEIixiERQzCIgZhEYOwiEFYxCAsYpD/Oli+7P857QeLQQ51MIMc62AGOdbBDHKsgxnkWAczyLEOZpBjHcwgxzqYQY51MIMc62AGOdbBDHKsgxnkWAczyLEOZpBjHcwgxzqYQY51MIMc62AGOdbBDHJ/HqR9UMr9c4NS7p8blHL/3KCU++cGpdw/Nyjl/rlBKffPDUq5f25Qyv1zg1LunxuUcv/coJT75wal3D83KOX+uUEp988NSrl/blDK/XODUu6fG5Ry/9yglPvnBqXcPzco5f65QSn3zw1KuX9uUMr9c4NS7hcREblXeADUZV6fJ9T9TAAAAABJRU5ErkJggg==" />
+                </defs>
+              </svg>
+              <svg width="17" height="17" viewBox="0 0 17 17" fill="none" xmlns="http://www.w3.org/2000/svg"
+                xmlns:xlink="http://www.w3.org/1999/xlink">
+                <rect width="17" height="17" fill="url(#pattern0_20_6)" />
+                <defs>
+                  <pattern id="pattern0_20_6" patternContentUnits="objectBoundingBox" width="1" height="1">
+                    <use xlink:href="#image0_20_6" transform="scale(0.01)" />
+                  </pattern>
+                  <image id="image0_20_6" width="100" height="100"
+                    xlink:href="data:image/png;base64,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" />
+                </defs>
+              </svg>
+              <svg width="22" id="battery" height="22" viewBox="0 0 22 22" fill="none"
+                xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+                <rect width="22" height="22" fill="url(#pattern0_20_7)" />
+                <defs>
+                  <pattern id="pattern0_20_7" patternContentUnits="objectBoundingBox" width="1" height="1">
+                    <use xlink:href="#image0_20_7" transform="scale(0.01)" />
+                  </pattern>
+                  <image id="image0_20_7" width="100" height="100"
+                    xlink:href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAGQAAABkCAYAAABw4pVUAAAACXBIWXMAAAsTAAALEwEAmpwYAAAByklEQVR4nO3cS05bQRCF4V+WYG9MEoiQtxQCuwDH2RGPJExgBVEYU+iizjhS3HZVd/5PqgX0Odf3Yfs2SJIkSZIkSZIkSZIkSZIyHQNrYAvcAy9A/Ofz0rLYtmyWjA7iE/BYIIAoPj+Bs30WsQIuCyw0BpsvLbvurgosLgadi32cprIXFYPPaa8yjtv5MHtBMfg89rrQrwssJiaZ8x6FfCuwkJhkNj0K+V5gITHJLM8pO/tdYCExySxZ7ix7ETHZWAj5JVgI+cFbCPlhWwj5AVsI+aFaCPPOM3DibS+l5slCKDc+GJJfgoWQH7yFkB+2hZAfsIWQH6qFkB+khZAfnoWQH5iFkB+ShRQIJiwkP4woMH51Qn4JFkJ+8BZCftgWQn7AFsK44w9U1CrDn3AZ4NTkX0mxkOzTRfgJyQ8kLCQ/hCg0XkOYrBBf2KFbGb96FPJQ4KiKSeauRyFfCywkJpnrHoX4WjS1Xos+An4UOLpi8Om2cQBtV5vsBcXA8wp8oDN3AuKfC/nMHqzaVkPZR1sM9sm42Nf2TH8su9p4TeGvZSw7YHzkQI7aHcOm3Vv78Mh7BrfATctmyUiSJEmSJEmSJEmSJEmSRA1v9UQeFnr4QnIAAAAASUVORK5CYII=" />
+                </defs>
+              </svg>
+            </div>
+          </div>
+          <div class="location">
+            <div class="location1">
+              <span>
+                <svg width="21" height="21" viewBox="0 0 21 21" fill="none" xmlns="http://www.w3.org/2000/svg"
+                  xmlns:xlink="http://www.w3.org/1999/xlink">
+                  <rect width="21" height="21" fill="url(#pattern0_21_8)" />
+                  <defs>
+                    <pattern id="pattern0_21_8" patternContentUnits="objectBoundingBox" width="1" height="1">
+                      <use xlink:href="#image0_21_8" transform="scale(0.01)" />
+                    </pattern>
+                    <image id="image0_21_8" width="100" height="100"
+                      xlink:href="data:image/png;base64,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" />
+                  </defs>
+                </svg>
+              </span>
+              <h3>Bangalore</h3>
+              <h5>Karnataka, India</h5>
+            </div>
+            <div class="location2">
+              <svg width="35" height="35" viewBox="0 0 35 35" fill="none" xmlns="http://www.w3.org/2000/svg"
+                xmlns:xlink="http://www.w3.org/1999/xlink">
+                <rect width="35" height="35" fill="url(#pattern0_21_11)" />
+                <defs>
+                  <pattern id="pattern0_21_11" patternContentUnits="objectBoundingBox" width="1" height="1">
+                    <use xlink:href="#image0_21_11" transform="scale(0.01)" />
+                  </pattern>
+                  <image id="image0_21_11" width="100" height="100"
+                    xlink:href="data:image/png;base64,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" />
+                </defs>
+              </svg>
+
+            </div>
+          </div>
+
+          <div class="search-bar">
+            <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg"
+              xmlns:xlink="http://www.w3.org/1999/xlink">
+              <rect width="16" height="16" fill="url(#pattern0_21_15)" />
+              <defs>
+                <pattern id="pattern0_21_15" patternContentUnits="objectBoundingBox" width="1" height="1">
+                  <use xlink:href="#image0_21_15" transform="scale(0.01)" />
+                </pattern>
+                <image id="image0_21_15" width="100" height="100"
+                  xlink:href="data:image/png;base64,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" />
+              </defs>
+            </svg>
+            <h4>Restaurant name or a dish ...</h4>
+            <svg width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg"
+              xmlns:xlink="http://www.w3.org/1999/xlink">
+              <rect width="18" height="18" fill="url(#pattern0_21_17)" />
+              <defs>
+                <pattern id="pattern0_21_17" patternContentUnits="objectBoundingBox" width="1" height="1">
+                  <use xlink:href="#image0_21_17" transform="scale(0.01)" />
+                </pattern>
+                <image id="image0_21_17" width="100" height="100"
+                  xlink:href="data:image/png;base64,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" />
+              </defs>
+            </svg>
+          </div>
+
+          <div class="card1">
+            <div class="card-header">
+              <div class="card-icons">
+                <svg width="17" height="17" viewBox="0 0 17 17" fill="none" xmlns="http://www.w3.org/2000/svg"
+                  xmlns:xlink="http://www.w3.org/1999/xlink">
+                  <rect width="17" height="17" fill="url(#pattern0_21_23)" />
+                  <defs>
+                    <pattern id="pattern0_21_23" patternContentUnits="objectBoundingBox" width="1" height="1">
+                      <use xlink:href="#image0_21_23" transform="scale(0.01)" />
+                    </pattern>
+                    <image id="image0_21_23" width="100" height="100"
+                      xlink:href="data:image/png;base64,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" />
+                  </defs>
+                </svg>
+                <svg width="17" height="17" viewBox="0 0 17 17" fill="none" xmlns="http://www.w3.org/2000/svg"
+                  xmlns:xlink="http://www.w3.org/1999/xlink">
+                  <rect width="17" height="17" fill="url(#pattern0_21_27)" />
+                  <defs>
+                    <pattern id="pattern0_21_27" patternContentUnits="objectBoundingBox" width="1" height="1">
+                      <use xlink:href="#image0_21_27" transform="scale(0.01)" />
+                    </pattern>
+                    <image id="image0_21_27" width="100" height="100"
+                      xlink:href="data:image/png;base64,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" />
+                  </defs>
+                </svg>
+              </div>
+            </div>
+            <div class="card-content">
+              <h3>Hotel Gulshan E Iran<br />Special Biryani</h3>
+              <h6>Biryani • North Indian • ₹250 for one</h6>
+            </div>
+          </div>
+
+          <div class="card2">
+            <div class="card-header">
+              <div class="card-icons">
+                <svg width="17" height="17" viewBox="0 0 17 17" fill="none" xmlns="http://www.w3.org/2000/svg"
+                  xmlns:xlink="http://www.w3.org/1999/xlink">
+                  <rect width="17" height="17" fill="url(#pattern0_21_23)" />
+                  <defs>
+                    <pattern id="pattern0_21_23" patternContentUnits="objectBoundingBox" width="1" height="1">
+                      <use xlink:href="#image0_21_23" transform="scale(0.01)" />
+                    </pattern>
+                    <image id="image0_21_23" width="100" height="100"
+                      xlink:href="data:image/png;base64,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" />
+                  </defs>
+                </svg>
+                <svg width="17" height="17" viewBox="0 0 17 17" fill="none" xmlns="http://www.w3.org/2000/svg"
+                  xmlns:xlink="http://www.w3.org/1999/xlink">
+                  <rect width="17" height="17" fill="url(#pattern0_21_27)" />
+                  <defs>
+                    <pattern id="pattern0_21_27" patternContentUnits="objectBoundingBox" width="1" height="1">
+                      <use xlink:href="#image0_21_27" transform="scale(0.01)" />
+                    </pattern>
+                    <image id="image0_21_27" width="100" height="100"
+                      xlink:href="data:image/png;base64,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" />
+                  </defs>
+                </svg>
+              </div>
+            </div>
+            <div class="card-content">
+              <h3>Hotel Gulshan E Iran<br />Special Biryani</h3>
+              <h6>Biryani • North Indian • ₹250 for one</h6>
+            </div>
+          </div>
+
+          <div class="footer">
+            <div class="footer-icon active">
+              <svg width="29" height="29" viewBox="0 0 29 29" fill="none" xmlns="http://www.w3.org/2000/svg"
+                xmlns:xlink="http://www.w3.org/1999/xlink">
+                <rect width="29" height="29" fill="url(#pattern0_21_18)" />
+                <defs>
+                  <pattern id="pattern0_21_18" patternContentUnits="objectBoundingBox" width="1" height="1">
+                    <use xlink:href="#image0_21_18" transform="scale(0.01)" />
+                  </pattern>
+                  <image id="image0_21_18" width="100" height="100"
+                    xlink:href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAGQAAABkCAYAAABw4pVUAAAACXBIWXMAAAsTAAALEwEAmpwYAAAFhElEQVR4nO2caYgdRRDH23jhjeKBuJp9VbMbXMnbVzWrWSIaL0QMokQUQTzxk4oHXiFfBAVPUD+oeISg5ENENNEQIggeeOAHXTGi0Xh8cHWPVz1ZF3SNEuOT3gM16jvmzUz329QP6uO8qVf/qenumuo2RlEURVEURVEURVEURVEURVEURVEURVH8UCWMLOMNQnCfMD7QjFWpdLHqlTEj8bEHWsY1wrjLMtZaMoJns/Znj6ZmzAIhfL1lIVSQ5pEY2TKstoTvWcaP6pkwbE0thmZIY5IKXikEO9sKsgqSDdsH8HhLuKMwMTRD6iMMNxcqhgpSHyG8XwUJCKHStSpIQNiliw6xhKP6ygoIWymdXKgoujBsTLWv7+Aqw9WtlECE8eXmBMBxLZ0UgI3xjGazQgguK8KnPZrt/XhS04IwTiSLoy7fPs//RSU3P3YI4XrfPs9rxspwdMsDegUv9O33vCU5JTq09VkWfF2L4319+z4vGV9SOibd1De63nQSk4tPODyJ4SpLcFdeJjFe5wLajp9SgZ506xAc/SqK9jedQJXwPDcjKWaRBj9bLl3e1oIy5b2rBNeY0Bkf6AFLOFWMGDi3PtjpApvGX7e2SH1vwk9rxuxlQkYYHyxSDDsnCsPaNP5awnvauW81hlNNyAjDqz4EsQRDqfwlXN9mdj5uQsYSPONFEIbXWvW11te3XwZjXbW2bNk+JlRsjGf6EEQYL00z+cjk3tRzugkZVxUtODtWp/FzukMlk4cB7jahI4wf5p4VBBvSdhCOxL1HzkyZM3kg3jYhk8Q9S/J/RcFv7by7s50Nwq9BjyPCsLEAQbam9S+hnhOdoJn6NNC9yITIWP/CbmH8I29BLOGmNP4ND3YdYBk/ydyfGC8yISKMq3IXg6dfE++36lvtErO3JXgxF39iWGlCRBg+L0gQcQFubc0Ba3PM2MdMaFTjCIsRA6fNrSOa8ctVhIXgrTx9EYbnTWhYwiuKFERcBzvBgGWM/89cE7YlsAX4stGEhhA+WaQgNiQj+HaCuheaPW0xaIM2+EkYbnGbgUwIFN7OycHa5okYDgtBkGL3aHDQtmW0Eh3ltY0zgCDUgjKCIW+Z4poavAeAwzNXAPX2mVcYfvAdABuguf0rfgSJ4Sbff94GaMIwMlYuH+Rp7zc8XEhxkTvMCO40XluBGG93H268B4KDsW0mgJ7Z7Mvc3LnmYuJNEGF4xXcAbEDmzlNx32L8iBHDct8BsIGZEL5hfGEJPvYdABuSEU6NU6nsRQwpl3q9B4ADMsJfkkrpHOMLG+NtjZ2EIbfZMunvOW662ZlwbP4KEl1gfCIET9RzUAiS3YtuwqXTvAeO8zEZiMi3IBvSbJoMPUuE4ft/nbvlMr3RdTEsL16FvweWcV2DDHlz92tck1l2XYSYjyD/0eU+e1Zj/WsJzjY+sQyP1H/ScJcbP/5xTQwrvQaccFQIv6wvCE66CsScz66C6xobGv22a8rzIkQrjQ6ua1AYnxKKbm30irN/BeQ5y/h0luaeerd5c7qq0MTGHWH80dXqpstChO824fOkaz/yKsjkYNcRORy1tyVvv91OqByyb50JAcvwQpZ/LCG8sTMXtHCWCaVhLrNmZoJvikp7ieH8DAXZbELCjQ/t/iknarWCS4v0O5tNPCCu6dyEhhu4U4tB+Ls7eMAUjDsMwO1XTJ/ROBXsFreZqSGuavUobzc7SQhW+PJ7eGbLwprWHyIY9r4yb4aEo0FL+E4zWeEmBKGcSZUQrBCGz5rIih1C+JDrvDGdxGxj9L2znejbXF1LCL9wA6BluGOs3FsygVEzZkESR+dawkeF4AMh/M4d9zf7NfQld96K14Y4RVEURVEURVEURVEURVEURVEURVHM/OZP+03BDxC1FJkAAAAASUVORK5CYII=" />
+                </defs>
+              </svg>
+              <h5>Delivery</h5>
+            </div>
+            <div class="footer-icon">
+              <svg width="29" height="29" viewBox="0 0 29 29" fill="none" xmlns="http://www.w3.org/2000/svg"
+                xmlns:xlink="http://www.w3.org/1999/xlink">
+                <rect width="29" height="29" fill="url(#pattern0_21_20)" />
+                <defs>
+                  <pattern id="pattern0_21_20" patternContentUnits="objectBoundingBox" width="1" height="1">
+                    <use xlink:href="#image0_21_20" transform="scale(0.01)" />
+                  </pattern>
+                  <image id="image0_21_20" width="100" height="100"
+                    xlink:href="data:image/png;base64,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" />
+                </defs>
+              </svg>
+              <h5>History</h5>
+            </div>
+            <div class="footer-icon">
+              <svg width="29" height="29" viewBox="0 0 29 29" fill="none" xmlns="http://www.w3.org/2000/svg"
+                xmlns:xlink="http://www.w3.org/1999/xlink">
+                <rect width="29" height="29" fill="url(#pattern0_21_22)" />
+                <defs>
+                  <pattern id="pattern0_21_22" patternContentUnits="objectBoundingBox" width="1" height="1">
+                    <use xlink:href="#image0_21_22" transform="scale(0.01)" />
+                  </pattern>
+                  <image id="image0_21_22" width="100" height="100"
+                    xlink:href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAGQAAABkCAYAAABw4pVUAAAACXBIWXMAAAsTAAALEwEAmpwYAAADrElEQVR4nO2du2sUQRzH1wfx+QfY+EKsfJQ+SKEGWxFBQYKiINiYxkYlPmKilQTR0koQFUlrIwhefBBz8/1uEsxCIJ0YtVVQMJHkZMJZCNmdyd7eZbz7fmDKmdn9ffZ2Z2Z3fhdFQgghhBBCCCGEEEIIIYQQQgiRi1KptHp4eHgrgHZjzOFWLgDaR0dHt9iYNPRyiuN4N8lbJMdJVlS4UAw+kOwjuaueIjaTfARgThLofSECeD4yMrK9aBnnAUxLBHPdEQD8AnCuZhGVSmUZgHsSwaJuzXdtTHMLIdkjGSz0OQngWl4Zx/S8YOGDFgCzAI4uVsZaAFOOxgfjOD5FclOSJG1Ri5MkSZsd+BhjTgN47Yjdp6GhoTXejZPszjD8wxhzsq5n1wSQ7CT5MyOOl70aqlQqy0l+TWlk2hhzoO5n0ySQPERyJiWWn22snY3Ecbw/46d2vSFn0kQAuJkRz73OBkjeTqn8bWxsbF1DzqKJSJJkPcnvKTHtczZA8mnKT+xZQ86gCSE5kCLkibNyxghBt6vi53Mln8oLLhoC6Mp7QK0OgK4UIePOyiSTlMoXGnL0TYiNXUpME5/KEvKfCHkH4IEKFh0DG7t6CFFh4TGQEIZ1YUkIl16ChHDpAy8hXPpgSwiXPsASwhYWMkHypQrzxGCiHkK0dJITLZ0EhoQEhoQEhoQEhoQEhoQEhoQEhoQEhoQEhoQEhoQEhoQEhoQEhoQEhoQEhoR4UiqVVla35d3P8QHgHQAHffqREA8GBgZWAHhR62tYAFddfUmIByRPFPRe/He5XN7g6EsfW7uo5msp6mOFDkdfEuKi+uwoZN+5MWZjVl8S4sHk5OQqAO8LkNLv6ktCPLGb9wFcBPC4ug/QuwB4COC4Tz+1CtGWtsC2tA2mVL5R9IG2Ckjfq/7KWVnbogPbFp0xHFTigIITBwDodTZAcl/GiKInz0G1MgB6M4bMe3yTz3xJaWTGd/1GRPbi7shIPjPlnV2O5JWMX4lNOdSpgHtNPLPSM12KFjM+t0m2HDPUNyTP2Fy1SmAWzScws7GwMSH51jGZ/Ljo/L42DZ1S/LGota5/llriOD4S5cEmnCn6gFTYHeXFPnRsalMFkUVdSP01pYn9i00CbJMBSwzz3qZs7M5GRWKzj1ZfXc5KDH1FzFVn6duiemGM2WknOwDGJIZpMkbt+lW5XN4RNfqdgs1Vq7+rMPN/V2FjYWPSUAlCCCGEEEIIIYQQQgghhBBCiKh5+AMnr9R0v13RowAAAABJRU5ErkJggg==" />
+                </defs>
+              </svg>
+              <h5>Money</h5>
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+
+      <div class="leftText">
+        Bringing delicious <br />moments to your <br />door with Zomato, <br />making every meal <br />special.
+      </div>
+      <div class="rightText">
+        So you can savor every meaningful <br />meal, celebration, and craving with <br />Zomato.
+      </div>
+
+
+    </div>
+
+    <h1 id="explore">Explore endless <br /><span>possibilities.</span></h1>
+
+    <div id="page4">
+      <div class="p4-s1">
+        <div class="p411">
+          <h1>Exclusive Deals</h1>
+          <img src="./assets/phone.png" alt="">
+          <p>Discover up to 60% off offers, the top 10 local restaurants, and food delivery to your train seat. Our
+            Explore section brings the best deals and top-rated eateries to you, all in one place.</p>
+        </div>
+      </div>
+      <div class="p4-s2">
+        <div class="p421">
+          <h1>Sustainability</h1>
+          <p>Discover carbon and plastic neutral options, reduce your carbon footprint, and support plastic-free
+            initiatives. Our Sustainability section offers eco-friendly dining choices all in one place.</p>
+          <div class="p4img">
+            <img src="./assets/zomatoboy.png" alt="" id="zomatoboy">
+            <img src="./assets/zomatogirl.png" alt="" id="zomatogirl">
+          </div>
+        </div>
+        <div class="p422">
+          <div class="p4221">
+            <div id="amtcard">
+              <h2>Cash</h2>
+              <h1 id="amt">₹560</h1>
+            </div>
+            <h1>Wallet</h1>
+            <p>Enjoy single-click payments with Zomato Wallet and convenient gift cards.</p>
+            <div class="bankcard">
+              <img src="./assets/bankcard1.png" alt="" id="bankcard1">
+              <img src="./assets/bankcard2.png" alt="" id="bankcard2">
+              <img src="./assets/bankcard3.png" alt="" id="bankcard3">
+            </div>
+          </div>
+          <div class="p4222">
+            <h1>Reminders</h1>
+            <p>Get timely updates on orders, offers, and recommendations with Zomato's dynamic notifications.</p>
+            <img src="./assets/phone2.png" alt="" id="phone2">
+          </div>
+        </div>
+
+      </div>
+
+
+
+
+
+    </div>
+
+    <div id="page5">
+      <div id="p5">
+        <h1>Food Delivery</h1>
+        <h2>Made Simple</h2>
+        <p>Get the perfect meal every time. Our platform is packed with hundreds of top restaurants and fully curated
+          menus for every taste and occasion.</p>
+        <div class="placeBtn">Place the order</div>
+      </div>
+      <img src="./assets/package.png" alt="" id="package">
+      <img src="./assets/Indiandish.png" alt="" id="indiandish">
+      <img src="./assets/chickencurry.png" alt="" id="chickencurry">
+      <img src="./assets/chickenbiryani.png" alt="" id="chickenbiryani">
+      <img src="./assets/pizzaham.png" alt="" id="pizzaham">
+      <img src="./assets/burgeronion.png" alt="" id="burgeronion">
+      <img src="./assets/rice.png" alt="" id="rice">
+      <img src="./assets/eggbiryani.png" alt="" id="eggbiryani">
+    </div>
+
+    <div id="page6">
+      <div class="p61">
+        <img src="./assets/eatingmaggi.png" alt="" id="eatmaggi">
+      </div>
+      <div class="p62">
+        <h3>WHAT THEY SAY</h3>
+        <h1>What Our Customer<br />Say About Us</h1>
+        <p>“Zomato is the best. Besides the many and delicious meals, the service is also very good, especially in the
+          very fast delivery. I highly recommend Zomato to you.”</p>
+        <div class="p622">
+          <img src="./assets/profile.png" alt="" id="profile">
+          <h4>Theresa Jordon</h4>
+          <h5>Food Enthusiast</h5>
+          <svg width="146" height="25" viewBox="0 0 146 25" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path
+              d="M12.0127 0L14.7097 8.30054H23.4374L16.3765 13.4306L19.0735 21.7311L12.0127 16.6011L4.95179 21.7311L7.6488 13.4306L0.587941 8.30054H9.31565L12.0127 0Z"
+              fill="#E23744" />
+            <path
+              d="M42.5063 0L45.2033 8.30054H53.931L46.8702 13.4306L49.5672 21.7311L42.5063 16.6011L35.4454 21.7311L38.1425 13.4306L31.0816 8.30054H39.8093L42.5063 0Z"
+              fill="#E23744" />
+            <path
+              d="M73 0L75.697 8.30054H84.4247L77.3639 13.4306L80.0609 21.7311L73 16.6011L65.9392 21.7311L68.6362 13.4306L61.5753 8.30054H70.303L73 0Z"
+              fill="#E23744" />
+            <path
+              d="M103.494 0L106.191 8.30054H114.918L107.858 13.4306L110.555 21.7311L103.494 16.6011L96.4328 21.7311L99.1298 13.4306L92.069 8.30054H100.797L103.494 0Z"
+              fill="#E23744" />
+            <path
+              d="M133.987 1.61804L136.209 8.45505L136.321 8.80054H136.684H143.873L138.057 13.0261L137.763 13.2396L137.876 13.5851L140.097 20.4221L134.281 16.1966L133.987 15.9831L133.693 16.1966L127.878 20.4221L130.099 13.5851L130.211 13.2396L129.917 13.0261L124.102 8.80054H131.29H131.654L131.766 8.45505L133.987 1.61804Z"
+              fill="white" stroke="#E23744" />
+          </svg>
+          <h6>4.0</h6>
+
+        </div>
+      </div>
+    </div>
+
+    <div id="page7">
+      <div class="p7">
+        <section class="panel pan1">
+          <h1>Our Core Offerings</h1>
+          <h2>hyperpure</h2>
+          <h5>BY ZOMATO</h5>
+          <p>Hyperpure is a B2B platform supplying high<br />quality food ingredients and other products</p>
+          <div class="wrapper">
+            <a href="#" class="icon"><i class="fa-brands fa-instagram"></i></a>
+            <a href="#" class="icon"><i class="fa-brands fa-linkedin-in"></i></a>
+            <a href="#" class="icon"><i class="fa-brands fa-youtube"></i></a>
+            <a href="#" class="icon"><i class="fa-brands fa-twitter"></i></a>
+          </div>
+          <img src="./assets/img1.png" alt="" class="img1">
+          <img src="./assets/img2.png" alt="" class="img2">
+        </section>
+        <section class="panel pan2">
+          <h1>Our Core Offerings</h1>
+          <h2>Blink<span id="green">it</span></h2>
+          <p>Quick commerce platform where customers can order everyday <br />needs across thousands of products and
+            have them delivered <br />within minutes</p>
+            <div class="wrapper">
+              <a href="#" class="icon icon2"><i class="fa-brands fa-instagram"></i></a>
+              <a href="#" class="icon icon2"><i class="fa-brands fa-linkedin-in"></i></a>
+              <a href="#" class="icon icon2"><i class="fa-brands fa-youtube"></i></a>
+              <a href="#" class="icon icon2"><i class="fa-brands fa-twitter"></i></a>
+            </div>
+          <img src="./assets/img3.png" alt="" class="img3">
+          <img src="./assets/img4.png" alt="" class="img4">
+        </section>
+        <section class="panel pan3">
+          <h1 id="Business">Beyond Business</h1>
+          <p>At Zomato, our business approach is guided by our commitment to responsible and sustainable growth. Our ESG
+            update outlines the many ways in which we make the impact of our business more sustainable and help make the
+            world a better place for everyone. Some of our key sustainability initiatives include:</p>
+          <div class="cards">
+            <div class="card c1">
+              <div class="cardimg"></div>
+              <h3>Feeding India</h3>
+              <p>A not-for-profit organisation, designing interventions to reduce hunger and malnutrition among underserved communities in India</p>
+            </div>
+            <div class="card c2">
+              <div class="cardimg"></div>
+              <h3>Net zero emissions</h3>
+              <p>Starting FY24, we have taken on a goal to achieve Net Zero emissions across Zomato’s food delivery value chain by 2033</p>
+            </div>
+            <div class="card c3">
+              <div class="cardimg"></div>
+              <h3>Reducing plastic waste</h3>
+              <p>Trying to reduce Zomato's plastic waste by ensuring completely plastic neutral deliveries since April 2022</p>
+            </div>
+          </div>
+        </section>
+      </div>
+
+    </div>
+
+    <footer id="footer">
+      <h1>The values that drive us to <br/>deliver fresh and fast</h1>
+      <div class="ft1">
+        <div class="ft11">
+          <img src="./assets/img8.png" alt="" id="fimg1">
+          <h2>Freshness</h2>
+          <p>Our commitment to delivering the freshest <br/>ingredients right to your doorstep.</p>
+        </div>
+        <div class="ft11">
+          <img src="./assets/img9.png" alt="" id="fimg2">
+          <h2 id="fh2">Community</h2>
+          <p>Supporting local farmers and businesses while providing <br/>you with the best produce.</p>
+        </div>
+        <div class="ft11">
+          <img src="./assets/img10.png" alt="" id="fimg3">
+          <h2>Reliability</h2>
+          <p>Ensuring timely and dependable delivery with <br/>every order.</p>
+        </div>
+      </div>
+
+      <div class="ft2">
+        <h1>Ready for a delicious meal? <br><span>Let's get started!</span></h1>
+        <div class="fbtn">Order now</div>
+      </div>
+
+      <div class="ft3">
+        <div class="ft30">
+          <h4 id="flogo">Zomato</h4>
+          <p>&copy; 2008</p>
+        </div>
+        <div class="ft31">
+          <h4 id="fhead">Customers</h4>
+          <h4>Order Now</h4>
+          <h4>Track Order</h4>
+        </div>
+        <div class="ft31">
+          <h4 id="fhead">Company</h4>
+          <h4>About Us</h4>
+          <h4>Careers</h4>
+          <h4>Contact Us</h4>
+        </div>
+        <div class="ft31">
+          <h4 id="fhead">Further Information</h4>
+          <h4>Terms & Conditions</h4>
+          <h4>Privacy Policy</h4>
+        </div>
+        <div class="follow">
+          <h4 id="fhead">Follow us</h4>
+          <ul>
+            <li class="fitem">
+              <a href="#">
+                <i class="fa-brands fa-instagram ficon"></i>
+              </a>
+            </li>
+            <li class="fitem">
+              <a href="#">
+                <i class="fa-brands fa-linkedin ficon"></i>
+              </a>
+            </li>
+            <li class="fitem">
+              <a href="#">
+                <i class="fa-brands fa-youtube ficon"></i>
+              </a>
+            </li>
+            <li class="fitem">
+              <a href="#">
+                <i class="fa-brands fa-x-twitter ficon"></i>
+              </a>
+            </li>
+          </ul>
+
+        </div>
+      </div>
+
+    </footer>
+
+
+
+
+
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/locomotive-scroll@3.5.4/dist/locomotive-scroll.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js" integrity="sha512-7eHRwcbYkK4d9g/6tD/mhkf++eoTHwpNM9woBxtPUBWm67zeAfFC+HrdoE2GanKeocly/VxeLvIqwvCdk7qScg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js" integrity="sha512-onMTRKJBKz8M1TnqqDuGBlowlH0ohFzMXYRNebz+yOcc5TQr/zAKsthzhuv0hiyUKEiQEQXEynnXCvNTOk50dg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+  <script src="script.js"></script>
+</body>
+
+</html>
